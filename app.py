@@ -8,7 +8,7 @@ from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
 
 from fsm import TocMachine
-from utils import send_text_message
+from utils import send_text_message, send_image_message
 
 load_dotenv()
 
@@ -126,6 +126,8 @@ def webhook_handler():
         print(f"REQUEST BODY: \n{body}")
         response = machine.advance(event)
         if response == False:
+            if event.message.text.lower() == 'fsm':
+                send_image_message(event.reply_token, 'https://32d1-219-71-91-30.jp.ngrok.io/show-fsm')
             send_text_message(event.reply_token, "Not Entering any State")
 
     return "OK"
@@ -133,8 +135,8 @@ def webhook_handler():
 
 @app.route("/show-fsm", methods=["GET"])
 def show_fsm():
-    machine.get_graph().draw("fsm.png", prog="dot", format="png")
-    return send_file("fsm.png", mimetype="image/png")
+    machine.get_graph().draw("fsm.svg", prog="dot")
+    return send_file("fsm.svg", mimetype="image/svg")
 
 
 if __name__ == "__main__":
