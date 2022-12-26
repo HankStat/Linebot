@@ -118,7 +118,7 @@
                 "sha256:50a829a305dc5a0fd1f9590748b19fece756093b581ac91e00c2c27c651d319d"
             ],
             "index": "pypi",
-            "version": "==1.5"
+            "version": "==1.7"
         },
         "python-dotenv": {
             "hashes": [

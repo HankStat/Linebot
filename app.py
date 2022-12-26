@@ -14,21 +14,45 @@ load_dotenv()
 
 
 machine = TocMachine(
-    states=["user", "state1", "state2"],
+    states=["user", "menu", "airline","vjw","hotel","attraction"],
     transitions=[
         {
             "trigger": "advance",
             "source": "user",
-            "dest": "state1",
-            "conditions": "is_going_to_state1",
+            "dest": "menu",
+            "conditions": "is_going_to_menu",
         },
         {
             "trigger": "advance",
-            "source": "user",
-            "dest": "state2",
-            "conditions": "is_going_to_state2",
+            "source": "menu",
+            "dest": "menu",
+            "conditions": "is_going_to_menu",
         },
-        {"trigger": "go_back", "source": ["state1", "state2"], "dest": "user"},
+        {
+            "trigger": "advance",
+            "source": "menu",
+            "dest": "vjw",
+            "conditions": "is_going_to_vjw",
+        },
+        {
+            "trigger": "advance",
+            "source": "menu",
+            "dest": "hotel",
+            "conditions": "is_going_to_hotel",
+        },
+        {
+            "trigger": "advance",
+            "source": "menu",
+            "dest": "airline",
+            "conditions": "is_going_to_airline",
+        },
+        {
+            "trigger": "advance",
+            "source": "menu",
+            "dest": "attraction",
+            "conditions": "is_going_to_attraction",
+        },
+        {"trigger": "go_back", "source": ["airline","vjw","hotel","attraction"], "dest": "menu"},
     ],
     initial="user",
     auto_transitions=False,
@@ -36,7 +60,6 @@ machine = TocMachine(
 )
 
 app = Flask(__name__, static_url_path="")
-
 
 # get channel_secret and channel_access_token from your environment variable
 channel_secret = os.getenv("LINE_CHANNEL_SECRET", None)
@@ -47,7 +70,6 @@ if channel_secret is None:
 if channel_access_token is None:
     print("Specify LINE_CHANNEL_ACCESS_TOKEN as environment variable.")
     sys.exit(1)
-
 line_bot_api = LineBotApi(channel_access_token)
 parser = WebhookParser(channel_secret)
 
