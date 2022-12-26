@@ -127,7 +127,8 @@ def webhook_handler():
         response = machine.advance(event)
         if response == False:
             if event.message.text.lower() == 'fsm':
-                send_image_message(event.reply_token, 'https://32d1-219-71-91-30.jp.ngrok.io/show-fsm')
+                #send_image_message(event.reply_token, 'https://32d1-219-71-91-30.jp.ngrok.io/show-fsm')
+                send_image_message(event.reply_token, 'https://raw.githubusercontent.com/HankStat/Linebot/main/fsm.png')
             send_text_message(event.reply_token, "Not Entering any State")
 
     return "OK"
