@@ -65,7 +65,7 @@ python3 app.py
 Or You can use [servo](http://serveo.net/) to expose local servers to the internet.
 
 
-## Finite State Machine
+<!-- ## Finite State Machine
 ![fsm](./img/show-fsm.png)
 
 ## Usage
@@ -78,7 +78,7 @@ Every time `user` state is triggered to `advance` to another state, it will `go_
 		* Reply: "I'm entering state1"
 
 	* Input: "go to state2"
-		* Reply: "I'm entering state2"
+		* Reply: "I'm entering state2" -->
 
 ## Features
 
